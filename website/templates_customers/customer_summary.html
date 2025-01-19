@@ -1,0 +1,12 @@
+{% extends "base_customers.html" %}
+{% block title %}Customer {% endblock %}
+
+{% block content %}
+
+<h1>Customer Summary</h1>
+
+<div class="d-flex justify-content-end">
+    <a href="{{ url_for('customers.home') }}" class="btn btn-primary">Back</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base_sp.html" %}
+{% block title %}Service Professional Dashboard{% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ current_user.name }}</h1>
+
+<div class="my-4">
+    <a href="{{ url_for('service_professional.service_history') }}" class="btn btn-secondary">
+        Service History
+    </a>
+</div>
+
+<!-- Table for New Requests -->
+<h2>New Service Requests</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service Name</th>
+            <th>Customer</th>
+            <th>Request Note</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in new_requests %}
+        <tr>
+            <td>{{ request.service.name }}</td>
+            <td>{{ request.customer.email }}</td>
+            <td>{{ request.remarks }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('service_professional.accept_reject_request') }}">
+                    <input type="hidden" name="sr_id" value="{{ request.id }}">
+                    <button type="submit" name="action" value="accept" class="btn btn-success btn-sm">Accept</button>
+                    <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Table for Ongoing Requests -->
+<h2>Ongoing Service Requests</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service Name</th>
+            <th>Customer</th>
+            <th>Request Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in ongoing_requests %}
+        <tr>
+            <td>{{ request.service.name }}</td>
+            <td>{{ request.customer.email }}</td>
+            <td>{{ request.remarks }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

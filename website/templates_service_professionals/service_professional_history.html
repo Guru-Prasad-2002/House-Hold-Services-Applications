@@ -1,0 +1,32 @@
+{% extends "base_sp.html" %}
+{% block title %}Service History{% endblock %}
+
+{% block content %}
+<h1>Service History</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service Name</th>
+            <th>Customer</th>
+            <th>Date of Completion</th>
+            <th>Request Note</th>
+            <th>Rating</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in closed_requests %}
+        <tr>
+            <td>{{ request.service.name }}</td>
+            <td>{{ request.customer.email }}</td>
+            <td>{{ request.date_of_completion }}</td>
+            <td>{{ request.remarks }}</td>
+            <td>{{ request.review.rating }}</td>
+            <td>{{ request.review.comment }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('service_professional.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+{% endblock %}

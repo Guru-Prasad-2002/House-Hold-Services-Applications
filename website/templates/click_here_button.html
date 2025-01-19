@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Hide the navbar only on this page */
+    .navbar {
+        display: none;
+    }
+</style>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<div class="welcome-container">
+    <h1 class="welcome-header">Welcome to the Home Help</h1>
+    <p class="welcome-subtext">
+        Your one-stop solution for connecting with trusted professionals and finding top-notch household services.
+    </p>
+    <div class="welcome-buttons">
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">Login</a>
+        <a href="{{ url_for('auth.signup') }}" class="btn btn-outline-primary btn-lg">Sign Up</a>
+    </div>
+</div>
+{% endblock %}

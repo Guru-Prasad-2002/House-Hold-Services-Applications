@@ -1,0 +1,59 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+<h2>Customer Management</h2>
+
+<h3>Unblocked Customers</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <!-- <th>ID</th> -->
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in unblocked_customers %}
+        <tr>
+            <!-- <td>{{ customer.id }}</td> -->
+            <td>{{ customer.email }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('admin.customer_management') }}">
+                    <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                    <button name="action" value="block" type="submit" class="btn btn-danger">Block</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Blocked Customers</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <!-- <th>ID</th> -->
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in blocked_customers %}
+        <tr>
+            <!-- <td>{{ customer.id }}</td> -->
+            <td>{{ customer.email }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('admin.customer_management') }}">
+                    <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                    <button name="action" value="unblock" type="submit" class="btn btn-success">Unblock</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<a href="{{ url_for('admin.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+
+{% endblock %}

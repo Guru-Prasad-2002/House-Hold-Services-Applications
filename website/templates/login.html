@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    /* Centering the form */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* Full viewport height */
+        margin: 0;
+        background-color: #f4f4f4;
+        /* Optional background color */
+        font-family: Arial, sans-serif;
+    }
+
+    form {
+        max-width: 400px;
+        /* Optional: limit form width */
+        width: 100%;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+</style>
+{% endblock %}
+
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<form action="{{ url_for('auth.login') }}" method="POST">
+    <h3 align="center">LOGIN</h3>
+
+    <!-- Role Selection -->
+    <!-- Role Selection -->
+    <div class="form-group">
+        <label for="admin">
+            <input type="radio" name="role" value="admin" id="admin"> Admin
+        </label>
+        <label for="service_professional">
+            <input type="radio" name="role" value="service_professional" id="service_professional"> Service Professional
+        </label>
+        <label for="customer">
+            <input type="radio" name="role" value="customer" id="customer"> Customer
+        </label>
+    </div>
+
+
+
+
+    <!-- Email Input -->
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" class="form-control" required />
+    </div>
+
+    <!-- Password Input -->
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter Password" class="form-control"
+            required />
+    </div>
+
+    <input type="submit" value="Login" class="btn btn-primary">
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    /* Centering the form */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* Full viewport height */
+        margin: 0;
+        background-color: #f4f4f4;
+        /* Optional background color */
+        font-family: Arial, sans-serif;
+    }
+
+    form {
+        max-width: 400px;
+        /* Optional: limit form width */
+        width: 100%;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+</style>
+{% endblock %}
+
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+
+<form action="{{ url_for('auth.signup') }}" method="POST">
+    <h3 align="center">SIGN UP</h3>
+
+    <!-- Role Selection -->
+    <div class="form-group">
+        <label>Select Role</label>
+        <div>
+            <label for="service_professional">
+                <input type="radio" name="role" value="service_professional" id="service_professional"> Service
+                Professional
+            </label>
+            <label for="customer">
+                <input type="radio" name="role" value="customer" id="customer" checked> Customer
+            </label>
+        </div>
+    </div>
+
+
+    <!-- Email Input -->
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" class="form-control" required />
+    </div>
+
+    <!-- Password Input -->
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter Password" class="form-control"
+            required />
+    </div>
+
+    <!-- Confirm Password Input -->
+    <div class="form-group">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password"
+            class="form-control" required />
+    </div>
+
+    <!-- Service Professional Specific Fields (only displayed if Service Professional is selected) -->
+    <!-- Service Professional Specific Fields (only displayed if Service Professional is selected) -->
+    <div id="service_professional_fields" style="display: none;">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter your full name" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="service_type">Service Type</label>
+            <select name="service_type" id="service_type" class="form-control" required>
+                {% for service in service_options %}
+                <option value="{{ service.name }}">{{ service.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="experience">Experience</label>
+            <input type="text" name="experience" id="experience" placeholder="Enter years of experience"
+                class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Short Description</label>
+            <textarea name="description" id="description" placeholder="Tell us a bit about yourself"
+                class="form-control" required></textarea>
+        </div>
+
+        <!-- Location and Pin Code Fields -->
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location" placeholder="Enter your location" class="form-control"
+                required />
+        </div>
+
+        <div class="form-group">
+            <label for="pin_code">Pin Code</label>
+            <input type="text" name="pin_code" id="pin_code" placeholder="Enter your pin code" class="form-control"
+                required />
+        </div>
+
+    </div>
+
+    <input type="submit" value="Sign Up" class="btn btn-primary">
+</form>
+
+<script>
+    // Function to enable required fields for Service Professional role
+    function updateRequiredFields() {
+        const role = document.querySelector('input[name="role"]:checked').value;
+
+        // Fields for Service Professional
+        const nameField = document.getElementById('name');
+        const serviceTypeField = document.getElementById('service_type');
+        const experienceField = document.getElementById('experience');
+        const descriptionField = document.getElementById('description');
+        const locationField = document.getElementById('location');
+        const pinCodeField = document.getElementById('pin_code');
+
+        // If Service Professional is selected, make fields required
+        if (role === 'service_professional') {
+            nameField.required = true;
+            serviceTypeField.required = true;
+            experienceField.required = true;
+            descriptionField.required = true;
+            locationField.required = true;
+            pinCodeField.required = true;
+        } else {
+            // Otherwise, remove the required attribute
+            nameField.required = false;
+            serviceTypeField.required = false;
+            experienceField.required = false;
+            descriptionField.required = false;
+            locationField.required = false;
+            pinCodeField.required = false;
+        }
+    }
+
+    // Show the additional fields if the Service Professional role is selected
+    document.getElementById('service_professional').addEventListener('change', function () {
+        document.getElementById('service_professional_fields').style.display = 'block';
+        updateRequiredFields();  // Enable required fields for Service Professional
+    });
+
+    // Hide the additional fields if another role is selected and disable the fields
+    document.getElementById('customer').addEventListener('change', function () {
+        document.getElementById('service_professional_fields').style.display = 'none';
+        updateRequiredFields();  // Disable required fields when Service Professional is not selected
+    });
+
+    // Call updateRequiredFields initially to handle the default selection
+    updateRequiredFields();
+</script>
+
+
+
+
+
+
+{% endblock %}

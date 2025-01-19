@@ -1,0 +1,138 @@
+{% extends "base_customers.html" %}
+{% block title %}Customer {% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ customer.email }}</h1>
+
+<h2>Service Requests</h2>
+
+<!-- Service Requests Made -->
+<h3>Service Requests Made (Requested)</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Service Professional</th>
+            <th>Date of Request</th>
+            <th>Request Note</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sr in sr_made %}
+        <tr>
+            <td>{{ sr.service.name }}</td>
+            <td>{{ sr.professional.name }}</td>
+            <td>{{ sr.date_of_request }}</td>
+            <td>{{ sr.remarks }}</td>
+            <td>
+                <!-- Edit Button -->
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ sr.id }}">
+                    Edit
+                </button>
+
+                <!-- Delete Button -->
+                <form action="{{ url_for('customers.service_requests_made') }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="sr_id" value="{{ sr.id }}">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editModal-{{ sr.id }}" tabindex="-1" aria-labelledby="editModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ url_for('customers.service_requests_made') }}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Service Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="sr_id" value="{{ sr.id }}">
+                            <div class="mb-3">
+                                <label for="remarks" class="form-label">Remarks</label>
+                                <textarea class="form-control" name="remarks">{{ sr.remarks }}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Service Requests Assigned -->
+<h3>Service Requests Assigned</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Date of Request</th>
+            <th>Professional</th>
+            <th>Request Note</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sr in sr_assigned %}
+        <tr>
+            <td>{{ sr.service.name }}</td>
+            <td>{{ sr.date_of_request }}</td>
+            <td>{{ sr.professional.name }}</td>
+            <td>{{ sr.remarks }}</td>
+            <td>
+                <!-- Close Button -->
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#closeModal-{{ sr.id }}">
+                    Close Service
+                </button>
+            </td>
+        </tr>
+
+        <!-- Close Modal -->
+        <div class="modal fade" id="closeModal-{{ sr.id }}" tabindex="-1" aria-labelledby="closeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ url_for('customers.service_requests_assigned') }}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="closeModalLabel">Close Service Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="sr_id" value="{{ sr.id }}">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">Rating (out of 5)</label>
+                                <input type="number" class="form-control" name="rating" min="1" max="5" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="comments" class="form-label">Comments</label>
+                                <textarea class="form-control" name="comment"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Buttons for History and New Service Request -->
+<div class="d-flex flex-column align-items-center my-4">
+    <a href="{{ url_for('customers.service_requests_history') }}" class="btn btn-secondary mb-2">Service History</a>
+    <a href="{{ url_for('customers.new_service_request') }}" class="btn btn-primary mb-2">Create New Service Request</a>
+</div>
+{% endblock %}

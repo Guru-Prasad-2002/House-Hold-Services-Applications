@@ -1,0 +1,56 @@
+{% extends "base_admin.html" %}
+{% block title %} Admin Dashboard {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="container" style="max-width: 800px;">
+        <h1 class="text-center my-4">Admin Dashboard</h1>
+
+        <!-- Services Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3>Services Management</h3>
+            </div>
+            <div class="col-md-6 mb-2">
+                <a href="{{ url_for('admin.service_management') }}" class="btn btn-primary w-100">
+                    Service Management
+                </a>
+            </div>
+            <div class="col-md-6 mb-2">
+                <a href="{{ url_for('admin.service_requests') }}" class="btn btn-outline-primary w-100">
+                    View Service Requests
+                </a>
+            </div>
+        </div>
+
+        <!-- Service Professionals Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3>Service Professionals</h3>
+            </div>
+            <div class="col-md-6 mb-2">
+                <a href="{{ url_for('admin.service_professional_verification') }}" class="btn btn-primary w-100">
+                    Verify Professionals
+                </a>
+            </div>
+            <div class="col-md-6 mb-2">
+                <a href="{{ url_for('admin.service_professional_management') }}" class="btn btn-outline-primary w-100">
+                    Manage Professionals
+                </a>
+            </div>
+        </div>
+
+        <!-- Customers Section -->
+        <div class="row">
+            <div class="col-12">
+                <h3>Customers</h3>
+            </div>
+            <div class="col-md-6 mb-2">
+                <a href="{{ url_for('admin.customer_management') }}" class="btn btn-primary w-100">
+                    Manage Customers
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

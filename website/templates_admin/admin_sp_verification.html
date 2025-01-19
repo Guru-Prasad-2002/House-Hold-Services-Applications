@@ -1,0 +1,41 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+<h2>Service Professional Verification</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Service Type</th>
+            <th>Location</th>
+            <th>Pin Code</th>
+            <th>Experience</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sp in pending_sps %}
+        <tr>
+            <td>{{ sp.email }}</td>
+            <td>{{ sp.name }}</td>
+            <td>{{ sp.service_type.name }}</td>
+            <td>{{ sp.location }}</td>
+            <td>{{ sp.pin_code }}</td>
+            <td>{{ sp.experience }}</td>
+            <td>
+                <!-- Form to Verify -->
+                <form method="POST" action="{{ url_for('admin.service_professional_verification') }}">
+                    <input type="hidden" name="sp_id" value="{{ sp.id }}">
+                    <button type="submit" class="btn btn-success">Verify</button>
+                </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<a href="{{ url_for('admin.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+{% endblock %}

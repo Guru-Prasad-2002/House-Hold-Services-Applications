@@ -1,0 +1,130 @@
+{% extends "base_customers.html" %}
+{% block title %}Create New Service Request {% endblock %}
+
+{% block content %}
+<h2>Create New Service Request</h2>
+
+<!-- Filter Section -->
+<form method="POST" action="{{ url_for('customers.new_service_request') }}" class="mb-4">
+    <div class="mb-3">
+        <label for="service_type" class="form-label">Filter by Service Type</label>
+        <select name="service_type" id="service_type" class="form-select">
+            <option value="">All</option>
+            {% for service in service_types %}
+            <option value="{{ service.id }}" {% if service.id==selected_service_type %}selected{% endif %}>
+                {{ service.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name="location" id="location" class="form-control"
+            value="{{ location_filter if location_filter else '' }}" placeholder="Enter location">
+    </div>
+    <div class="mb-3">
+        <label for="pin_code" class="form-label">Pin Code</label>
+        <input type="text" name="pin_code" id="pin_code" class="form-control"
+            value="{{ pin_code_filter if pin_code_filter else '' }}" placeholder="Enter pin code">
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+
+
+<!-- Table of Service Professionals -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Service Type</th>
+            <th>Experience</th>
+            <th>Description</th>
+            <th>Avg Rating</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for professional in professionals %}
+        <tr>
+            <td>{{ professional.name }}</td>
+            <td>{{ professional.service_type.name }}</td>
+            <td>{{ professional.experience }}</td>
+            <td>{{ professional.description }}</td>
+            <td>
+                <!-- Display the average rating -->
+                {% if professional.avg_rating %}
+                {{ professional.avg_rating }} <!-- Round to 2 decimal places -->
+                {% else %}
+                No Ratings
+                {% endif %}
+            </td>
+            <td>
+                <!-- View Profile Button -->
+                <button class="btn btn-info" data-bs-toggle="modal"
+                    data-bs-target="#profileModal-{{ professional.id }}">
+                    View Profile
+                </button>
+
+                <!-- Create Service Request Button -->
+                <button class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#createModal-{{ professional.id }}">
+                    Create Request
+                </button>
+            </td>
+        </tr>
+
+        <!-- Profile Modal -->
+        <div class="modal fade" id="profileModal-{{ professional.id }}" tabindex="-1"
+            aria-labelledby="profileModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Profile: {{ professional.name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Email:</strong> {{ professional.email }}</p>
+                        <p><strong>Service Type:</strong> {{ professional.service_type.name }}</p>
+                        <p><strong>Experience:</strong> {{ professional.experience }}</p>
+                        <p><strong>Description:</strong> {{ professional.description }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Service Request Modal -->
+        <div class="modal fade" id="createModal-{{ professional.id }}" tabindex="-1" aria-labelledby="createModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ url_for('customers.service_requests_made') }}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create Service Request for {{ professional.name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="action" value="create">
+                            <input type="hidden" name="professional_id" value="{{ professional.id }}">
+                            <div class="mb-3">
+                                <label for="remarks" class="form-label">Remarks</label>
+                                <textarea class="form-control" name="remarks" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('customers.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+{% endblock %}

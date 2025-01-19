@@ -1,0 +1,127 @@
+{% extends "base_admin.html" %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<h1>Service Management</h1>
+
+<div class="container mt-5">
+    <h2 class="text-center">Service Management</h2>
+    <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addServicesModal">Add Services</button>
+
+    <!-- Service Table -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Time Required (hours)</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if services %}
+            {% for service in services %}
+            <tr>
+                <td>{{ service.name }}</td>
+                <td>{{ service.price }}</td>
+                <td>{{ service.time_required }}</td>
+                <td>{{ service.description }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <button class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#editServiceModal-{{ service.id }}">Edit</button>
+
+                    <!-- Delete Form -->
+                    <form action="{{ url_for('admin.delete_service', id=service.id) }}" method="POST"
+                        style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+            <!-- Edit Service Modal -->
+            <div class="modal fade" id="editServiceModal-{{ service.id }}" tabindex="-1"
+                aria-labelledby="editServiceLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Service</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('admin.edit_service', id=service.id) }}" method="POST">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" name="name" value="{{ service.name }}"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input type="number" class="form-control" name="price" value="{{ service.price }}"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="time_required" class="form-label">Time Required</label>
+                                    <input type="number" class="form-control" name="time_required"
+                                        value="{{ service.time_required }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input type="text" class="form-control" name="description"
+                                        value="{{ service.description }}" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="5" class="text-center">No services found.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Service Modal -->
+<div class="modal fade" id="addServicesModal" tabindex="-1" aria-labelledby="addServicesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Services</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('admin.add_service') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" name="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time_required" class="form-label">Time Required</label>
+                        <input type="number" class="form-control" name="time_required" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Service</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="{{ url_for('admin.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+
+{% endblock %}

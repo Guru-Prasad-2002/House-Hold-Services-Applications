@@ -1,0 +1,407 @@
+
+/* Styling for the container */
+.welcome-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Light gray background */
+    text-align: center;
+}
+
+/* Header styling */
+.welcome-header {
+    font-size: 2.5rem;
+    color: #0d6efd; /* Bootstrap primary color */
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Subtext styling */
+.welcome-subtext {
+    font-size: 1.2rem;
+    color: #6c757d; /* Bootstrap secondary text color */
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+/* Buttons styling */
+.welcome-buttons .btn {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for buttons */
+    transition: all 0.3s ease-in-out;
+}
+
+.welcome-buttons .btn-primary {
+    background-color: #0d6efd; /* Primary color */
+    border: none;
+}
+
+.welcome-buttons .btn-primary:hover {
+    background-color: #0b5ed7; /* Darker primary on hover */
+}
+
+.welcome-buttons .btn-outline-primary {
+    color: #0d6efd; /* Primary color */
+    border: 2px solid #0d6efd;
+}
+
+.welcome-buttons .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+/* General Reset and Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #343a40;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40;
+    padding: 1rem;
+}
+
+.navbar-brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link {
+    color: #dddddd;
+    margin-right: 1rem;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.navbar-nav .nav-link.active {
+    color: #0d6efd;
+}
+
+/* Buttons */
+.btn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-outline-primary {
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #ffffff;
+}
+
+/* Tables */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background-color: #ffffff;
+}
+
+.table th,
+.table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #dddddd;
+}
+
+.table th {
+    background-color: #0d6efd;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #f1f9ff;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    background-color: #ffffff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+}
+
+/* Links */
+a {
+    color: #0d6efd;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Modal Dialog */
+.modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background-color: #0d6efd;
+    color: #ffffff;
+    padding: 1rem;
+    border-bottom: none;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    font-size: 1rem;
+    color: #343a40;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: none;
+    background-color: #f8f9fa;
+}
+
+.modal-footer .btn {
+    margin-left: 0.5rem;
+}
+
+/* Alerts */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: bold;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+/* Footer (if applicable) */
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+/* General Form Styling */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #343a40;
+}
+
+/* Inputs and Textareas */
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    background-color: #ffffff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+}
+
+/* Placeholder Styling */
+input::placeholder,
+textarea::placeholder {
+    color: #6c757d;
+}
+
+/* Form Validation States */
+input:invalid,
+textarea:invalid,
+select:invalid {
+    border-color: #dc3545;
+}
+
+input:valid,
+textarea:valid,
+select:valid {
+    border-color: #28a745;
+}
+
+input:invalid:focus,
+textarea:invalid:focus,
+select:invalid:focus {
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+}
+
+input:valid:focus,
+textarea:valid:focus,
+select:valid:focus {
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* Submit Button Styling */
+.btn-submit {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #0d6efd;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0b5ed7;
+}
+
+/* Disabled Submit Button */
+.btn-submit:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+}
+
+/* Checkbox and Radio Button */
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+/* Textarea Styling */
+textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* Multi-Step Form Navigation */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.form-navigation button {
+    font-size: 1rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.375rem;
+    background-color: #0d6efd;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-navigation button:hover {
+    background-color: #0b5ed7;
+}
+
+/* Form Errors (Display errors below the input) */
+.form-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+

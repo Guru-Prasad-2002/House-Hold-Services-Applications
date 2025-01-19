@@ -1,0 +1,60 @@
+{% extends "base_customers.html" %}
+{% block title %}Service History {% endblock %}
+
+{% block content %}
+<h2>Service History</h2>
+
+<!-- Table for Closed Requests -->
+<h3>Completed Service Requests</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Date of Request</th>
+            <th>Date of Completion</th>
+            <th>Professional</th>
+            <th>Request Note</th>
+            <th>Rating</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sr in sr_closed %}
+        <tr>
+            <td>{{ sr.service.name }}</td>
+            <td>{{ sr.date_of_request }}</td>
+            <td>{{ sr.date_of_completion }}</td>
+            <td>{{ sr.professional.name if sr.professional else 'N/A' }}</td>
+            <td>{{ sr.remarks }}</td>
+            <td>{{ sr.review.rating if sr.review else 'N/A' }}</td>
+            <td>{{ sr.review.comment if sr.review else 'N/A' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Table for Rejected Requests -->
+<h3>Rejected Service Requests</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Date of Request</th>
+            <th>Professional</th>
+            <th>Request Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sr in sr_rejected %}
+        <tr>
+            <td>{{ sr.service.name }}</td>
+            <td>{{ sr.date_of_request }}</td>
+            <td>{{ sr.professional.name if sr.professional else 'N/A' }}</td>
+            <td>{{ sr.remarks }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('customers.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+{% endblock %}

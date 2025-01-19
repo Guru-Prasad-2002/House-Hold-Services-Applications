@@ -1,0 +1,73 @@
+{% extends "base_admin.html" %}
+{% block title %}Service Requests{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Service Requests</h1>
+
+<div class="d-flex justify-content-center my-4">
+    <!-- Filter Buttons -->
+    <a href="{{ url_for('admin.service_requests', status='All') }}"
+        class="btn {% if filter_status == 'All' %}btn-primary{% else %}btn-secondary{% endif %} mx-1">
+        All
+    </a>
+    <a href="{{ url_for('admin.service_requests', status='Requested') }}"
+        class="btn {% if filter_status == 'Requested' %}btn-primary{% else %}btn-secondary{% endif %} mx-1">
+        Pending
+    </a>
+    <a href="{{ url_for('admin.service_requests', status='Assigned') }}"
+        class="btn {% if filter_status == 'Assigned' %}btn-primary{% else %}btn-secondary{% endif %} mx-1">
+        Assigned
+    </a>
+    <a href="{{ url_for('admin.service_requests', status='Closed') }}"
+        class="btn {% if filter_status == 'Closed' %}btn-primary{% else %}btn-secondary{% endif %} mx-1">
+        Closed
+    </a>
+    <a href="{{ url_for('admin.service_requests', status='Rejected') }}"
+        class="btn {% if filter_status == 'Rejected' %}btn-primary{% else %}btn-secondary{% endif %} mx-1">
+        Rejected
+    </a>
+</div>
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Professional</th>
+            <th>Status</th>
+            <th>Date Requested</th>
+            <th>Date Completed</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in service_requests %}
+        <tr>
+            <td>{{ request.id }}</td>
+            <td>{{ request.customer.email }}</td>
+            <td>{{ request.service.name }}</td>
+            <td>
+                {% if request.professional %}
+                {{ request.professional.name }}
+                {% else %}
+                N/A
+                {% endif %}
+            </td>
+            <td>{{ request.service_status }}</td>
+            <td>{{ request.date_of_request.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>
+                {% if request.date_of_completion %}
+                {{ request.date_of_completion.strftime('%Y-%m-%d %H:%M:%S') }}
+                {% else %}
+                N/A
+                {% endif %}
+            </td>
+            <td>{{ request.remarks }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('admin.home') }}" class="btn btn-secondary mt-4">Back to Dashboard</a>
+{% endblock %}
